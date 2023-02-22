@@ -36,7 +36,9 @@ module.exports = {
   entry: entries,
   output: {
     path: dist,
+    clean: true,
     filename: 'js/[name].bundle.js',
+    assetModuleFilename: '[name][ext]',
   },
   optimization: {
     minimize: true,
@@ -49,14 +51,15 @@ module.exports = {
       rules: [
         {
           test: /\.pug$/,
-          loader: 'pug-loader',
+          use: {
+            loader: 'pug-loader',
+            options: { pretty: true }
+          }
         },
         {
-          test: /\.(sass|scss)$/,
+          test: /\.(s*)css$/,
           use: [
-            {
-              loader: MiniCssExtractPlugin.loader
-            },
+            MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { importLoaders: 1 } },
             { loader: 'postcss-loader', options: {
               postcssOptions: {
@@ -83,14 +86,10 @@ module.exports = {
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
-          use: {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'fonts/',
-              publicPath: '../fonts'
-            }
-          }
+          type: 'asset/resource',
+          generator: {
+            filename: 'fonts/[name][ext]',
+          },
         },
         {
           test: /\.svg$/,
