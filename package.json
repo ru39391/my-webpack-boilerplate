@@ -1,53 +1,39 @@
 {
-  "name": "myBaseTpl",
-  "version": "1.0.0",
-  "description": "",
+  "name": "my-webpack-boilerplate",
+  "version": "2.0.0",
+  "description": "[Профиль на github.com](https://github.com/ru39391)",
+  "main": "webpack.common.js",
   "scripts": {
     "dev": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ru39391/myBaseTpl.git"
+    "url": "git+https://github.com/ru39391/my-webpack-boilerplate.git"
   },
-  "keywords": [],
-  "author": "tg:vladimir_wd <my.freelance.mailbox@gmail.com> (https://freelance.ru/nutheadbeast)",
+  "author": "tg:vladimir_wd",
   "license": "ISC",
-  "homepage": "",
-  "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "babel-loader": "^8.2.2",
-    "copy-webpack-plugin": "^10.2.0",
-    "css-loader": "^5.0.1",
-    "css-minimizer-webpack-plugin": "^1.2.0",
-    "file-loader": "^6.2.0",
-    "fs": "0.0.1-security",
-    "html-loader": "^1.3.2",
-    "html-webpack-plugin": "^4.5.1",
-    "mini-css-extract-plugin": "^1.3.4",
-    "node-sass": "^5.0.0",
-    "postcss": "^8.2.4",
-    "postcss-loader": "^4.2.0",
-    "postcss-preset-env": "^6.7.0",
-    "pug-html-loader": "^1.1.5",
-    "pug-loader": "^2.4.0",
-    "pug-plain-loader": "^1.1.0",
-    "sass-loader": "^10.1.1",
-    "style-loader": "^2.0.0",
-    "sugarss": "^3.0.3",
-    "svg-sprite-loader": "^5.2.1",
-    "terser-webpack-plugin": "^5.1.1",
-    "webpack": "^5.16.0",
-    "webpack-cli": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+  "bugs": {
+    "url": "https://github.com/ru39391/my-webpack-boilerplate/issues"
   },
-  "dependencies": {
-    "bootstrap": "^4.6.0",
-    "desandro-classie": "^1.0.1",
-    "formstone": "^1.4.22",
-    "jquery": "^3.6.0",
-    "popper.js": "^1.16.1",
-    "swiper": "^5.4.1"
+  "homepage": "https://github.com/ru39391/my-webpack-boilerplate#readme",
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "file-loader": "^6.2.0",
+    "fs": "^0.0.1-security",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss-loader": "^7.0.2",
+    "postcss-preset-env": "^8.0.1",
+    "pug-plugin": "^4.9.5",
+    "sass-loader": "^13.2.0",
+    "svg-sprite-loader": "^6.0.11",
+    "terser-webpack-plugin": "^5.3.6",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   }
 }
