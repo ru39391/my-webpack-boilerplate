@@ -1,8 +1,9 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const baseConfig = require('./webpack.base.js');
 
-module.exports = merge(common, {
+module.exports = merge(baseConfig, {
+  mode: 'development',
   output: {
     publicPath: '/',
     assetModuleFilename: 'img/[name][ext]'
@@ -15,10 +16,9 @@ module.exports = merge(common, {
       },
     ]
   },
-  mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    watchFiles: path.join(__dirname, 'src'),
+    watchFiles: path.join(__dirname, '../src'),
     open: true,
     hot: true,
     port: 3000

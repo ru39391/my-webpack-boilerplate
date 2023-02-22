@@ -1,34 +1,41 @@
-const fs = require('fs')
 const path = require('path');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //генерация html
 const TerserPlugin = require('terser-webpack-plugin'); //минификация JS
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //минификация CSS
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //извлечение cтилей из JS
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin'); //генерация svg-спрайта
 
-const paths = {
-  src: path.join(__dirname, 'src'),
-  dist: path.join(__dirname, 'dist')
+const entries = {};
+const pathways = {
+  src: path.join(__dirname, '../src'),
+  dist: path.join(__dirname, '../dist')
 };
-const pagesDir = `${paths.src}/views/`;
-const pages = fs.readdirSync(pagesDir).filter(item => path.extname(item) === '.pug');
 
-console.log(pages.map((item) => {
-  return {
-    template: `${pagesDir}${item}`,
-    filename: `./${item.replace(/\.pug/,'.html')}`,
-    tpl: path.join(__dirname, 'src/views/', item),
-    filename: `${item.replace(/\.pug/,'.html')}`,
-  }
-}));
+const { src, dist }  = pathways;
+
+function getSourcesArr(pathway, foldername, ext, extReplaced = '') {
+  const folder = `${pathway}/${foldername}/`;
+  const filesArr = fs.readdirSync(folder).filter(item => path.extname(item) === `.${ext}`);
+  const regex = new RegExp(`.${ext}`);
+  return filesArr.map((item) => {
+    return {
+      pathway: `${folder}${item}`,
+      filename: item.replace(regex, `.${extReplaced}`),
+      regex
+    };
+  });
+}
+
+getSourcesArr(src, 'js', 'js').forEach((item) => {
+  const { pathway, filename } = item;
+  entries[filename.replace(/\./, '')] = pathway;
+});
 
 module.exports = {
-  entry: {
-    main: path.resolve(__dirname, 'src/js/main.js'),
-    //icons: path.resolve(__dirname, 'src/js/icons.js')
-  },
+  entry: entries,
   output: {
-    path: `${paths.dist}`,
+    path: dist,
     filename: 'js/[name].bundle.js',
   },
   optimization: {
@@ -92,7 +99,7 @@ module.exports = {
                 extract: true,
                 //publicPath: '/',
                 //spriteFilename: './img/icons/icons.svg'
-                publicPath: 'img/icons/',
+                publicPath: '../img/icons/',
                 spriteFilename: 'icons.svg'
               }
             }
@@ -101,11 +108,13 @@ module.exports = {
       ]
   },
   plugins: [
-    new MiniCssExtractPlugin(),
-    ...pages.map(page => new HtmlWebpackPlugin({
-      template: `${pagesDir}/${page}`,
-      filename: `./${page.replace(/\.pug/,'.html')}`,
-      //favicon: `${paths.src}/img/favicon.ico`,
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].min.css',
+    }),
+    ...getSourcesArr(src, 'views', 'pug', 'html').map((item) => new HtmlWebpackPlugin({
+      template: item.pathway,
+      filename: item.filename,
+      favicon: `${src}/img/favicon.ico`,
       minify: false,
     })),
     new SpriteLoaderPlugin({

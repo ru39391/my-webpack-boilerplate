@@ -4,8 +4,8 @@
   "description": "[Профиль на github.com](https://github.com/ru39391)",
   "main": "webpack.common.js",
   "scripts": {
-    "dev": "webpack serve --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "dev": "webpack serve --config ./config/webpack.dev.js",
+    "build": "webpack --config ./config/webpack.prod.js"
   },
   "repository": {
     "type": "git",
