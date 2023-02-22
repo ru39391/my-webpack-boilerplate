@@ -1,37 +1,35 @@
 const fs = require('fs')
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const postcssPresetEnv = require('postcss-preset-env');
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //генерация html
+const TerserPlugin = require('terser-webpack-plugin'); //минификация JS
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); //минификация CSS
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); //извлечение cтилей из JS
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin'); //генерация svg-спрайта
 
 const paths = {
   src: path.join(__dirname, 'src'),
   dist: path.join(__dirname, 'dist')
 };
-const pagesDir = `${paths.src}/pug/`;
-const pages = fs.readdirSync(pagesDir).filter(fileName => fileName.endsWith('.pug'));
+const pagesDir = `${paths.src}/views/`;
+const pages = fs.readdirSync(pagesDir).filter(item => path.extname(item) === '.pug');
 
-const checkPage = (pugFileName) => {
-  if(pugFileName.includes('account')) {
-    return ['icons','account']
-  } else {
-    return ['icons','main']
+console.log(pages.map((item) => {
+  return {
+    template: `${pagesDir}${item}`,
+    filename: `./${item.replace(/\.pug/,'.html')}`,
+    tpl: path.join(__dirname, 'src/views/', item),
+    filename: `${item.replace(/\.pug/,'.html')}`,
   }
-};
+}));
 
 module.exports = {
   entry: {
-    //main: [path.resolve(__dirname, 'src/js/main.js'), path.resolve(__dirname, 'src/scss/main.scss')],
     main: path.resolve(__dirname, 'src/js/main.js'),
-    //account: path.resolve(__dirname, 'src/js/account.js'),
-    icons: path.resolve(__dirname, 'src/js/icons.js')
+    //icons: path.resolve(__dirname, 'src/js/icons.js')
   },
   output: {
-    filename: 'js/[name].bundle.js',
     path: `${paths.dist}`,
+    filename: 'js/[name].bundle.js',
   },
   optimization: {
     minimize: true,
@@ -43,19 +41,15 @@ module.exports = {
   module: {
       rules: [
         {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
-          }
+          test: /\.pug$/,
+          loader: 'pug-loader',
         },
         {
           test: /\.(sass|scss)$/,
           use: [
-            { loader: MiniCssExtractPlugin.loader },
+            {
+              loader: MiniCssExtractPlugin.loader
+            },
             { loader: 'css-loader', options: { importLoaders: 1 } },
             { loader: 'postcss-loader', options: {
               postcssOptions: {
@@ -69,6 +63,16 @@ module.exports = {
             }},
             'sass-loader'
           ]
+        },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          }
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -86,42 +90,26 @@ module.exports = {
           use: [
             { loader: 'svg-sprite-loader', options: {
                 extract: true,
-                /*
-                publicPath: '/',
-                spriteFilename: './img/icons/icons.svg'
-                */
+                //publicPath: '/',
+                //spriteFilename: './img/icons/icons.svg'
                 publicPath: 'img/icons/',
                 spriteFilename: 'icons.svg'
               }
             }
           ]
         },
-        {
-          test: /\.pug$/,
-          use: [
-            { loader: 'html-loader', options: {
-              minimize: false
-            }},
-            { loader: 'pug-html-loader', options: {
-              pretty: true
-            }}
-          ]
-        }
       ]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: 'css/[name].min.css',
-    }),
+    new MiniCssExtractPlugin(),
     ...pages.map(page => new HtmlWebpackPlugin({
       template: `${pagesDir}/${page}`,
       filename: `./${page.replace(/\.pug/,'.html')}`,
       //favicon: `${paths.src}/img/favicon.ico`,
       minify: false,
-      //chunks: checkPage(page)
     })),
     new SpriteLoaderPlugin({
       plainSprite: true
     })
-  ]  
+  ]
 };

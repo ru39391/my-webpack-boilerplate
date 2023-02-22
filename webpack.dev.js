@@ -18,16 +18,9 @@ module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, 'src'),
+    watchFiles: path.join(__dirname, 'src'),
     open: true,
-    /*
-    progress: true,
-    client: {
-      overlay: {
-        errors: true,
-        warnings: false,
-      },
-    },
-    */
-  }   
+    hot: true,
+    port: 3000
+  }
 });
