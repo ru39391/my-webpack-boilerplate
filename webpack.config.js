@@ -120,9 +120,7 @@ module.exports = {
           use: [
             { loader: 'svg-sprite-loader', options: {
                 extract: true,
-                //publicPath: '/',
-                //spriteFilename: './img/icons/icons.svg'
-                publicPath: '../img/icons/',
+                publicPath: '/img/icons/',
                 spriteFilename: 'icons.svg'
               }
             }
