@@ -20,10 +20,11 @@ html(lang="ru")
 
     block wrapper
       section.wrapper
-        a(href="../img/bk.jpg") #{title}
+        h1 #{title}
 
-        img(src="../img/bk.jpg")
-        //+icon('terminal-fill')
+        .pic
+          //- img(src=require('../assets/images/3OrNGS64f1w.jpg'))
+          //- +icon('terminal-fill')
 
     block footer
       include base/footer.pug

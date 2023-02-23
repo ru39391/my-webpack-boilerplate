@@ -4,8 +4,8 @@
   "description": "[Профиль на github.com](https://github.com/ru39391)",
   "main": "webpack.common.js",
   "scripts": {
-    "dev": "webpack serve --config ./config/webpack.dev.js",
-    "build": "webpack --config ./config/webpack.prod.js"
+    "dev": "webpack serve --node-env=development",
+    "build": "webpack --node-env=production"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,6 @@
     "babel-loader": "^9.1.2",
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^4.2.2",
-    "file-loader": "^6.2.0",
     "fs": "^0.0.1-security",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",

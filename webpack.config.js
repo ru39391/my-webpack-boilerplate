@@ -8,11 +8,11 @@ const SpriteLoaderPlugin = require('svg-sprite-loader/plugin'); //генерац
 
 const entries = {};
 const pathways = {
-  src: path.join(__dirname, '../src'),
-  dist: path.join(__dirname, '../dist')
+  src: path.join(__dirname, 'src'),
+  dist: path.join(__dirname, 'dist'),
+  assets: path.join(__dirname, 'src/assets')
 };
-
-const { src, dist }  = pathways;
+const { src, dist, assets }  = pathways;
 
 function getSourcesArr(pathway, foldername, ext, extReplaced = '') {
   const folder = `${pathway}/${foldername}/`;
@@ -20,16 +20,15 @@ function getSourcesArr(pathway, foldername, ext, extReplaced = '') {
   const regex = new RegExp(`.${ext}`);
   return filesArr.map((item) => {
     return {
-      pathway: `${folder}${item}`,
+      template: `${folder}${item}`,
       filename: item.replace(regex, `.${extReplaced}`),
-      regex
     };
   });
 }
 
 getSourcesArr(src, 'js', 'js').forEach((item) => {
-  const { pathway, filename } = item;
-  entries[filename.replace(/\./, '')] = pathway;
+  const { template, filename } = item;
+  entries[filename.replace(/\./, '')] = template;
 });
 
 module.exports = {
@@ -39,6 +38,15 @@ module.exports = {
     clean: true,
     filename: 'js/[name].bundle.js',
     assetModuleFilename: '[name][ext]',
+  },
+  devServer: {
+    static: {
+      directory: assets,
+    },
+    watchFiles: src,
+    open: true,
+    hot: true,
+    port: 3000
   },
   optimization: {
     minimize: true,
@@ -60,17 +68,23 @@ module.exports = {
           test: /\.(s*)css$/,
           use: [
             MiniCssExtractPlugin.loader,
-            { loader: 'css-loader', options: { importLoaders: 1 } },
-            { loader: 'postcss-loader', options: {
-              postcssOptions: {
-                plugins: {
-                  'postcss-preset-env': {
-                    browsers: 'last 2 versions',
-                    stage: 0,
+            {
+              loader: 'css-loader',
+              options: { importLoaders: 1 }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: {
+                    'postcss-preset-env': {
+                      browsers: 'last 2 versions',
+                      stage: 0,
+                    }
                   }
                 }
               }
-            }},
+            },
             'sass-loader'
           ]
         },
@@ -79,10 +93,20 @@ module.exports = {
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
+            options: { presets: ['@babel/preset-env'] }
           }
+        },
+        {
+          test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+          type: 'asset/resource',
+          generator: {
+            filename: (data) => {
+              const { filename } = data;
+              const pathwayArr = filename.split('/');
+              pathwayArr.splice(0,1);
+              return pathwayArr.join('/');
+            },
+          },
         },
         {
           test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -111,7 +135,7 @@ module.exports = {
       filename: 'css/[name].min.css',
     }),
     ...getSourcesArr(src, 'views', 'pug', 'html').map((item) => new HtmlWebpackPlugin({
-      template: item.pathway,
+      template: item.template,
       filename: item.filename,
       favicon: `${src}/img/favicon.ico`,
       minify: false,
