@@ -1,2 +1,2 @@
 import '../../vendor/fonts.scss';
-import '../scss/main.scss';
+import '../styles/main.scss';

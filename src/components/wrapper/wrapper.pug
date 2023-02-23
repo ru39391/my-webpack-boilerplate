@@ -1,0 +1,12 @@
+include ../icon/icon
+include ../img/img
+
+mixin wrapper(options = {})
+  - const { title = '' } = options;
+
+  section.wrapper
+    h1!= title
+
+    .pic
+      +img({ ext: 'png' })
+      +icon({ icon: 'webpack' })
