@@ -1,7 +1,9 @@
 # Шаблон для быстрого старта (webpack5, pug, scss, js)
 
 [Профиль на github.com](https://github.com/ru39391)
+
 [Репозиторий шаблона](https://github.com/ru39391/my-webpack-boilerplate)
+
 [Шаблон на GitHub Pages](https://ru39391.github.io/my-webpack-boilerplate/)
 
 ## Техническая информация:
