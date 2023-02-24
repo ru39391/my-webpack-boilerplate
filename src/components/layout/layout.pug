@@ -1,7 +1,10 @@
+include ../header/header
 include ../wrapper/wrapper
 
-block meta
+block layoutParams
   - const layoutMod = '';
+
+block meta
   - const title = 'Шаблон для быстрого старта';
 
 doctype html
@@ -16,10 +19,10 @@ html(lang="ru")
 
   body.layout(class=layoutMod)
     block header
-      include ../header/header
+      +header({ title })
 
     block wrapper
-      +wrapper({ title })
+      +wrapper()
 
     block footer
       include ../footer/footer

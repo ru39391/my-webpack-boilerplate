@@ -1,0 +1,4 @@
+.wrapper {
+  @extend %d-flex-centered;
+  @include offset(0 0 48px,0 16px);
+}

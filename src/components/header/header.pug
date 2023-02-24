@@ -1,1 +1,5 @@
-header.header
+mixin header(options = {})
+  - const { title = '' } = options;
+
+  header.header
+    h1!= title

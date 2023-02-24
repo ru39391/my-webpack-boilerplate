@@ -1,12 +1,10 @@
 include ../icon/icon
-include ../img/img
-include ../button/button
 
 mixin wrapper(options = {})
   - const { title = '' } = options;
 
   section.wrapper
-    h1!= title
-
-    +img({ ext: 'png' })
-    +icon({ icon: 'webpack' })
+    +icon()
+    +icon({ icon: 'pug' })
+    +icon({ icon: 'sass' })
+    +icon({ icon: 'javascript' })
