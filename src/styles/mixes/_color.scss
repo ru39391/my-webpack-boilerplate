@@ -1,0 +1,15 @@
+.color-inherit {
+  @include color(inherit !important);
+}
+
+.color-white {
+  @include color(#fff !important);
+}
+
+.color-black {
+  @include color(#000 !important);
+}
+
+.color-default {
+  @include color($color_default !important);
+}

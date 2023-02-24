@@ -1,0 +1,77 @@
+%d-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+%d-flex-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+%d-flex-ai-center {
+  display: flex;
+  align-items: center;
+}
+
+%d-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%d-flex-centered {
+  @extend %d-flex-ai-center;
+  justify-content: center;
+}
+
+%text-oneline {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+%text-default {
+  font-size: $fs_default;
+  line-height: $lh_content;
+}
+
+%link-default {
+  text-decoration: none;
+  color: $color_link;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    color: $color_link_hover;
+  }
+}
+
+%btn-default {
+  border: 0;
+  outline: 0;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+
+%input-default {
+  outline: 0;
+  outline: none;
+}
+
+%toggler-default {
+  @include wh(0);
+  @include pos(0,0);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+%list-default {
+  @include offset(0,0);
+
+  li {
+    list-style: none;
+    list-style-position: inside;
+  }
+}

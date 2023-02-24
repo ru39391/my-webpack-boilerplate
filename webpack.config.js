@@ -136,6 +136,7 @@ module.exports = {
       template: item.template,
       filename: item.filename,
       favicon: `${src}/img/favicon.ico`,
+      inject: 'body',
       minify: false,
     })),
     new SpriteLoaderPlugin({

@@ -1,0 +1,5 @@
+mixin button(options = {})
+  - const { className = 'btn', classNameMod = '', type = 'submit', caption = '' } = options;
+  - const attrClassValue = classNameMod === '' ? className : `${className} ${classNameMod}`;
+
+  button(class=attrClassValue type=type)!= caption
