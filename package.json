@@ -5,7 +5,8 @@
   "main": "webpack.common.js",
   "scripts": {
     "dev": "webpack serve --node-env=development",
-    "build": "webpack --node-env=production"
+    "build": "webpack --node-env=production",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^4.2.2",
     "fs": "^0.0.1-security",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.7.2",
     "postcss-loader": "^7.0.2",
