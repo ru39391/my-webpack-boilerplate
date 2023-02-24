@@ -1,0 +1,4 @@
+.header {
+  @include offset(0 0 96px,32px 16px 0);
+  text-align: center;
+}

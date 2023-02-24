@@ -1,0 +1,12 @@
+@import '~modern-css-reset/src/reset.css';
+
+@import 'helpers/helpers';
+@import 'mixes/mixes';
+
+@import '../components/img/img';
+@import '../components/icon/icon';
+@import '../components/button/button';
+@import '../components/layout/layout';
+@import '../components/header/header';
+@import '../components/wrapper/wrapper';
+@import '../components/footer/footer';

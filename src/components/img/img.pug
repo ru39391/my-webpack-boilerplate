@@ -1,0 +1,5 @@
+mixin img(options = {})
+  - const { className = 'img-fluid', isAsset = true, fileName = 'webpack', ext = 'jpg', alt = '' } = options;
+  - const src = isAsset ? require(`../assets/images/${fileName}.${ext}`) : require(`../img/${fileName}.${ext}`);
+
+  img(class=className src=src alt=alt)

@@ -1,0 +1,11 @@
+.layout {
+	font: $fs_default $ff_default;
+	line-height: $lh_default;
+  color: $color_default;
+  background-color: $bg_default;
+}
+
+.layout_type_boilerplate {
+  @extend %d-flex-column;
+  @extend %d-flex-centered;
+}

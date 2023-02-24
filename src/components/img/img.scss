@@ -1,0 +1,9 @@
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-cover {
+  @include wh(100%);
+  object-fit: cover;
+}

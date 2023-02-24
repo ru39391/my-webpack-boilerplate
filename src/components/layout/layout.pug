@@ -1,0 +1,28 @@
+include ../header/header
+include ../wrapper/wrapper
+
+block layoutParams
+  - const layoutMod = '';
+
+block meta
+  - const title = 'Шаблон для быстрого старта';
+
+doctype html
+html(lang="ru")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+    title #{title}
+    meta(name="keywords" content="")
+    meta(name="description" content="")
+
+  body.layout(class=layoutMod)
+    block header
+      +header({ title })
+
+    block wrapper
+      +wrapper()
+
+    block footer
+      include ../footer/footer
